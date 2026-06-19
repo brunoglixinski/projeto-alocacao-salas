@@ -25,8 +25,8 @@ lista_salas = [
     Sala("Sala 305", 15, False)
 ]
 
-#aqui sao as materias disponiveis, o professor e a quantidade de alunos na turma
-lista_disciplina = [
+#aqui sao as materias disponiveis, o professor, quantidade de alunos na turma e se precisa de projetor
+lista_disciplinas = [
     Disciplina("Inteligência Artificial", "Afonso", 45, True),
     Disciplina("Estrutura de Dados", "Beatriz", 35, True),
     Disciplina("Cálculo I", "Carlos", 55, False),

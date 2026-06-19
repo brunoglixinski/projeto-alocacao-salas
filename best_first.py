@@ -1,19 +1,21 @@
-class Sala:
-    def __init__(self, nome, prof, numAlunos):
-        self.nome = nome
-        self.prof = prof
-        self.numAlunos = numAlunos
+import numpy as np
+from modelos import Disciplina, Sala, Horario, Alocacao
+from dados_teste import lista_salas, lista_disciplinas, lista_horarios
+from validador import alocacaoValida
 
-class Materia:
-    def __init__(self, nome, prof, numAlunos):
-        self.nome = nome
-        self.prof = prof
-        self.numAlunos = numAlunos
+def calcularPrioridade(Disciplina):
+    score = Disciplina.capacidade
 
-class Horario:
-    def __init__(self, dia, horas):
-        self.dia = dia
-        self.horas = horas
+    if Disciplina.projetor:
+        score += 50
 
+    return score
 
+def ordenaDisciplinas(lista_disciplinas):
+    
 
+def bestFirst():
+    lista_alocados = []
+    lista_nao_alocados = []
+
+    alocacaoValida()
