@@ -36,4 +36,32 @@ Para que uma alocação seja considerada válida pelo sistema, ela deve respeita
 
 ## 🚀 Como Executar
 
-*(Instruções de execução serão adicionadas conforme o desenvolvimento dos motores de busca for concluído).*
+### 1. Pré-requisitos
+Certifique-se de ter o **Python 3.8+** instalado em sua máquina.
+
+### 2. Instalação das Dependências
+Abra o terminal na pasta raiz do projeto e instale o framework web e o servidor HTTP responsáveis por conectar a interface aos algoritmos:
+
+```bash
+pip install fastapi uvicorn
+```
+
+### 3. Iniciando o Sistema
+Com as bibliotecas instaladas, basta inicializar o arquivo principal. No terminal, rode o comando:
+
+```Bash
+python app.py
+```
+
+💡 Nota para desenvolvimento: Se estiver editando o código e quiser que o servidor aplique as mudanças automaticamente, suba a aplicação utilizando:
+
+```Bash
+uvicorn app:app --reload
+```
+
+### 4. Acessando a Interface
+O servidor iniciará localmente servindo o painel de controle e a grade visual. Abra o navegador de sua preferência e acesse:
+
+👉 http://127.0.0.1:8000
+
+A partir do menu superior da aplicação web, você poderá selecionar os datasets (Cenário Simples, Realista ou Hardcore) e executar as buscas para visualizar e comparar as métricas de otimização e resolução de restrições.
