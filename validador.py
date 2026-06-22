@@ -1,6 +1,6 @@
 import numpy as np
 
-def alocaoValida(nova_disciplina, nova_sala, novo_horario, lista_alocados):
+def alocacaoValida(nova_disciplina, nova_sala, novo_horario, lista_alocados):
     #primeiro testa se tem capacidade e se tem projetor se necessário
     if nova_disciplina.capacidade > nova_sala.capacidade:
         return False
@@ -12,9 +12,9 @@ def alocaoValida(nova_disciplina, nova_sala, novo_horario, lista_alocados):
         if novo_horario.dia == alocacao.horario.dia and novo_horario.horas == alocacao.horario.horas:
             if nova_sala.nome == alocacao.sala.nome:
                 return False
-        #verifica se não bate horários e professor
-        if nova_disciplina.prof == alocacao.disciplina.prof:
-            return False
+            #verifica se não bate horários e professor
+            if nova_disciplina.prof == alocacao.disciplina.prof:
+                return False
         
     return True
             

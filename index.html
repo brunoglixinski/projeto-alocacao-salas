@@ -55,6 +55,10 @@
                     <option value="hardcore">Cenário Hardcore</option>
                 </select>
                 
+                <select id="seletor-sala" onchange="renderizarTabelaComFiltro()" class="px-3 py-2 rounded-md bg-white dark:bg-[#111] border border-slate-300 dark:border-white/20 text-sm font-semibold text-slate-700 dark:text-slate-300 outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors cursor-pointer shadow-sm hidden">
+                    <option value="">Selecione uma Sala</option>
+                </select>
+
                 <button onclick="buscarAlocacao('best_first')" class="px-4 py-2 rounded-md text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all">
                     Best-First
                 </button>
@@ -78,7 +82,7 @@
         </div>
 
         <div id="conteudo" class="hidden">
-            <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
                 <div class="bg-white dark:bg-[#111] p-5 rounded-2xl border border-slate-300 dark:border-white/10 shadow-sm">
                     <p class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-1">Tempo Execução</p>
                     <p class="text-2xl font-semibold text-slate-900 dark:text-white flex items-baseline gap-1">
@@ -86,8 +90,12 @@
                     </p>
                 </div>
                 <div class="bg-white dark:bg-[#111] p-5 rounded-2xl border border-slate-300 dark:border-white/10 shadow-sm">
-                    <p class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-1">Nós Visitados</p>
-                    <p class="text-2xl font-semibold text-slate-900 dark:text-white" id="m-nos">0</p>
+                    <p class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-1">Nós Expandidos</p>
+                    <p class="text-2xl font-semibold text-slate-900 dark:text-white" id="m-nos-expandidos">0</p>
+                </div>
+                <div class="bg-white dark:bg-[#111] p-5 rounded-2xl border border-slate-300 dark:border-white/10 shadow-sm">
+                    <p class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-1">Nós Gerados</p>
+                    <p class="text-2xl font-semibold text-slate-900 dark:text-white" id="m-nos-gerados">0</p>
                 </div>
                 <div class="bg-white dark:bg-[#111] p-5 rounded-2xl border border-slate-300 dark:border-white/10 shadow-sm">
                     <p class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Status da Busca</p>
@@ -150,6 +158,9 @@
             "15:00-17:00"
         ];
 
+        // ALTERADO: Criação de um array global para poder filtrar as alocações no navegador
+        window.gradeAlocacaoGlobal = [];
+
         async function buscarAlocacao(tipoAlgoritmo) {
             // Pegando o valor do cenário selecionado pelo usuário
             const cenarioSelecionado = document.getElementById('seletor-dados').value;
@@ -159,13 +170,15 @@
             document.getElementById('conteudo').classList.add('hidden');
 
             try {
-                // Enviando o cenário como parâmetro na URL (Query Parameter)
+                // Enviando o cenário como parâmetro na URL
                 const resposta = await fetch(`/alocar/${tipoAlgoritmo}?dataset=${cenarioSelecionado}`);
                 const dados = await resposta.json();
 
                 document.getElementById('algoritmo-nome').innerText = dados.algoritmo;
                 document.getElementById('m-tempo').innerText = dados.metricas.tempo_execucao_ms;
-                document.getElementById('m-nos').innerText = dados.metricas.nos_visitados.toLocaleString();
+                // ALTERADO: Alimenta os novos cards tratando se a chave vier como 'nos_generados' ou 'nos_gerados'
+                document.getElementById('m-nos-expandidos').innerText = dados.metricas.nos_expandidos.toLocaleString();
+                document.getElementById('m-nos-gerados').innerText = dados.metricas.nos_generados ? dados.metricas.nos_generados.toLocaleString() : dados.metricas.nos_gerados.toLocaleString();
                 document.getElementById('m-conflitos').innerText = dados.metricas.conflitos_restantes;
 
                 const statusTexto = document.getElementById('m-status');
@@ -180,38 +193,27 @@
                     statusPonto.classList.replace('bg-emerald-500', 'bg-rose-500');
                 }
 
-                const tabela = document.getElementById('corpo-tabela');
-                tabela.innerHTML = '';
+                // ALTERADO: Salva a resposta do backend na variável global antes de montar a tabela
+                window.gradeAlocacaoGlobal = dados.grade_alocacao;
 
-                horariosGrade.forEach(horario => {
-                    let linhaHtml = `<tr class="group hover:bg-slate-100 dark:hover:bg-white/[0.02] transition-colors">
-                        <td class="p-4 font-bold text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-transparent border-r border-slate-300 dark:border-white/10 text-center align-middle">${horario}</td>`;
-                    
-                    diasSemana.forEach(dia => {
-                        const aula = dados.grade_alocacao.find(g => g.dia === dia && g.horario === horario);
-                        
-                        if (aula) {
-                            linhaHtml += `
-                                <td class="p-2 align-top">
-                                    <div class="p-3.5 rounded-xl border bg-white dark:bg-[#161616] border-slate-300 dark:border-white/20 shadow-sm hover:border-indigo-400 transition-all group-hover:-translate-y-0.5">
-                                        <div class="font-bold text-slate-900 dark:text-slate-200 text-sm leading-tight mb-1.5">${aula.disciplina}</div>
-                                        <div class="flex items-center gap-1.5 mb-3">
-                                            <div class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
-                                            <span class="text-xs font-medium text-slate-600 dark:text-slate-400">${aula.professor}</span>
-                                        </div>
-                                        <span class="inline-block text-[11px] px-2 py-1 rounded font-bold tracking-wide uppercase bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-transparent">${aula.sala}</span>
-                                    </div>
-                                </td>`;
-                        } else {
-                            linhaHtml += `<td class="p-2 align-middle text-center">
-                                <div class="h-full min-h-[80px] border-2 border-dashed border-slate-300 dark:border-white/10 rounded-xl flex items-center justify-center text-xs font-bold text-slate-400 dark:text-slate-600 tracking-wider">LIVRE</div>
-                            </td>`;
-                        }
+                // ALTERADO: Captura o elemento do seletor e limpa antes de preencher
+                const seletorSala = document.getElementById('seletor-sala');
+                seletorSala.innerHTML = '';
+                
+                // ALTERADO: Popula dinamicamente com as salas recebidas do app.py
+                if(dados.salas && dados.salas.length > 0) {
+                    dados.salas.forEach(sala => {
+                        const option = document.createElement('option');
+                        option.value = sala;
+                        option.innerText = sala;
+                        seletorSala.appendChild(option);
                     });
-                    
-                    linhaHtml += '</tr>';
-                    tabela.innerHTML += linhaHtml;
-                });
+                    // Torna o select visível na interface
+                    seletorSala.classList.remove('hidden');
+                }
+
+                // ALTERADO: Chama o renderizador que aplica o filtro por sala
+                renderizarTabelaComFiltro();
 
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('loader').classList.remove('flex');
@@ -220,6 +222,44 @@
                 alert('Erro ao processar dados do servidor Python.');
                 console.error(erro);
             }
+        }
+
+        // ALTERADO: Função nova para renderizar a matriz de acordo com a sala selecionada
+        function renderizarTabelaComFiltro() {
+            const salaSelecionada = document.getElementById('seletor-sala').value;
+            const tabela = document.getElementById('corpo-tabela');
+            tabela.innerHTML = '';
+
+            horariosGrade.forEach(horario => {
+                let linhaHtml = `<tr class="group hover:bg-slate-100 dark:hover:bg-white/[0.02] transition-colors">
+                    <td class="p-4 font-bold text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-transparent border-r border-slate-300 dark:border-white/10 text-center align-middle">${horario}</td>`;
+                
+                diasSemana.forEach(dia => {
+                    // 🆕 ALTERADO: O .find() agora obrigatoriamente valida se o registro pertence à sala escolhida no topo!
+                    const aula = window.gradeAlocacaoGlobal.find(g => g.dia === dia && g.horario === horario && g.sala === salaSelecionada);
+                    
+                    if (aula) {
+                        linhaHtml += `
+                            <td class="p-2 align-top">
+                                <div class="p-3.5 rounded-xl border bg-white dark:bg-[#161616] border-slate-300 dark:border-white/20 shadow-sm hover:border-indigo-400 transition-all group-hover:-translate-y-0.5">
+                                    <div class="font-bold text-slate-900 dark:text-slate-200 text-sm leading-tight mb-1.5">${aula.disciplina}</div>
+                                    <div class="flex items-center gap-1.5 mb-3">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                                        <span class="text-xs font-medium text-slate-600 dark:text-slate-400">${aula.professor}</span>
+                                    </div>
+                                    <span class="inline-block text-[11px] px-2 py-1 rounded font-bold tracking-wide uppercase bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-transparent">${aula.sala}</span>
+                                </div>
+                            </td>`;
+                    } else {
+                        linhaHtml += `<td class="p-2 align-middle text-center">
+                            <div class="h-full min-h-[80px] border-2 border-dashed border-slate-300 dark:border-white/10 rounded-xl flex items-center justify-center text-xs font-bold text-slate-400 dark:text-slate-600 tracking-wider">LIVRE</div>
+                        </td>`;
+                    }
+                });
+                
+                linhaHtml += '</tr>';
+                tabela.innerHTML += linhaHtml;
+            });
         }
     </script>
 </body>

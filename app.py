@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from hill_climbing import subidamontanha
-#from best_first import bestfirst 
+from best_first import bestFirst 
+# Importando a lista de salas para poder enviar ao JavaScript
+from dados_teste import lista_salas
 
 app = FastAPI()
 
@@ -16,8 +18,9 @@ def rodar_alocacao(algoritmo: str, dataset: str = "realista"):
     
     if algoritmo == "hill_climbing":
         resultado_busca, tempo, nos, conflitos = subidamontanha(dataset) # Passa o dataset pra sua função
-    #else:
-        #resultado_busca, tempo, nos, conflitos = bestfirst()
+    else:
+        #ALTERADO: Corrigida a passagem necessaria do best first, com nos gerados e expandidos
+        resultado_busca, tempo, nos_exp, nos_ger, conflitos = bestFirst(dataset)
         
     # Transforma os objetos em dicionários para o front-end
     grade_formatada = []
@@ -33,14 +36,20 @@ def rodar_alocacao(algoritmo: str, dataset: str = "realista"):
             "professor": aloc.disciplina.prof
         })
 
+    # ALTERADO: Cria uma lista limpa contendo apenas os nomes das salas cadastradas
+    salas_disponiveis = [sala.nome for sala in lista_salas]
+
+    # ALTERADO: adicionei em métricas os nós gerados e expandidos que são cobrados
     return {
         "algoritmo": "Subida na Montanha" if algoritmo == "hill_climbing" else "Best-First Search",
         "metricas": {
             "tempo_execucao_ms": tempo,
-            "nos_visitados": nos,
+            "nos_expandidos": nos_exp,
+            "nos_gerados": nos_ger,
             "conflitos_restantes": conflitos
         },
-        "grade_alocacao": grade_formatada
+        "grade_alocacao": grade_formatada,
+        "salas": salas_disponiveis
     }
 
 if __name__ == "__main__":
