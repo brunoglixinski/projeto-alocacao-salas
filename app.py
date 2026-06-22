@@ -17,10 +17,14 @@ def ler_interface():
 def rodar_alocacao(algoritmo: str, dataset: str = "realista"):
     
     if algoritmo == "hill_climbing":
-        resultado_busca, tempo, nos, conflitos = subidamontanha(dataset) # Passa o dataset pra sua função
+        resultado_busca, tempo, total_nos, conflitos = subidamontanha(dataset)        
+        nos_exp = "N/A" 
+        nos_ger = "N/A" 
     else:
         #ALTERADO: Corrigida a passagem necessaria do best first, com nos gerados e expandidos
         resultado_busca, tempo, nos_exp, nos_ger, conflitos = bestFirst(dataset)
+
+    print("tempo", tempo)
         
     # Transforma os objetos em dicionários para o front-end
     grade_formatada = []

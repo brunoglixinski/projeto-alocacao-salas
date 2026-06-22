@@ -29,7 +29,8 @@ def ordenaDisciplinas(lista_disciplinas):
 
 
 def bestFirst(dataset="realista"):
-    tempoInicio = time.time()
+    # ALTERADO: Usando perf_counter para precisão máxima do processador
+    tempoInicio = time.perf_counter()
     nosGerados = 0
     nosExpandidos = 0
 
@@ -76,8 +77,10 @@ def bestFirst(dataset="realista"):
         if not alocou:
             lista_nao_alocados.append(disciplina)
 
-    # Cálculo final de tempo em milissegundos
-    tempo_gasto = int((time.time() - tempoInicio) * 1000)
+    # Cálculo final de tempo mantendo 3 casas decimais (float)
+    # Subtraímos os tempos (em segundos), multiplicamos por 1000 e arredondamos para 3 casas
+    tempo_gasto = round((time.perf_counter() - tempoInicio) * 1000, 3)
+    
     conflitos_restantes = 0 # No Best-First puro, termina com 0 conflitos
 
     return lista_alocados, tempo_gasto, nosExpandidos, nosGerados, conflitos_restantes
