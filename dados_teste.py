@@ -1,14 +1,14 @@
-#trazendo as classes de modelos para instanciar os objetos aqui
+# trazendo as classes de modelos para instanciar os objetos aqui
 from modelos import Sala, Disciplina, Horario
 
-#lista de objetos do tipo sala, onde vai o nome da sala, a qtde que comporta e se tem projetor
+# lista de objetos do tipo sala, onde vai o nome da sala, a qtde que comporta e se tem projetor
 lista_salas = [
     Sala("Sala 101", 35, True),
     Sala("Sala 102", 60, False),
     Sala("Lab Inf 1", 25, True)
 ]
 
-#aqui sao as materias disponiveis, o professor, quantidade de alunos na turma e se precisa de projetor
+# aqui sao as materias disponiveis, o professor, quantidade de alunos na turma e se precisa de projetor
 lista_disciplinas = {
     
     # CENÁRIO SIMPLES: Poucas matérias, sem restrições severas ou professores repetidos no mesmo bloco
@@ -33,8 +33,50 @@ lista_disciplinas = {
         Disciplina("Bancos de Dados", "Fernanda", 42, True),
         Disciplina("Engenharia de Software", "Fernanda", 50, True)
     ],
+
+    # CENÁRIO INTERMEDIÁRIO (MEIO-TERMO): Volume alto (29 matérias). 
+    # Espaço apertado e professores com restrições de dias, mas MATEMATICAMENTE POSSÍVEL de resolver com 0 conflitos.
+    "intermediario": [
+        # Bloco de IA e Dados (Afonso e Beatriz diluídos em seus dias permitidos)
+        Disciplina("Inteligência Artificial I", "Afonso", 30, True),
+        Disciplina("Inteligência Artificial II", "Afonso", 25, True),
+        Disciplina("Compiladores", "Afonso", 30, True),
+        Disciplina("Sistemas Especialistas", "Afonso", 20, True),
+        Disciplina("Estrutura de Dados I", "Beatriz", 35, True),
+        Disciplina("Estrutura de Dados II", "Beatriz", 30, True),
+        Disciplina("Programação Orientada a Objetos", "Beatriz", 25, True),
+        Disciplina("Teoria dos Grafos", "Beatriz", 20, True),
+
+        # Bloco de Exatas (Turmas grandes dependendo fortemente da Sala 102)
+        Disciplina("Cálculo I", "Carlos", 55, False),
+        Disciplina("Cálculo II", "Carlos", 60, False),
+        Disciplina("Cálculo III", "Carlos", 50, False),
+        Disciplina("Álgebra Linear", "Carlos", 55, False),
+        Disciplina("Física Mecânica", "Daniela", 40, False),
+        Disciplina("Eletromagnetismo", "Daniela", 45, False),
+        Disciplina("Termodinâmica", "Daniela", 30, False),
+
+        # Bloco de Infraestrutura e Engenharia
+        Disciplina("Redes de Computadores I", "Eduardo", 25, True),
+        Disciplina("Sistemas Operacionais", "Eduardo", 25, True),
+        Disciplina("Arquitetura de Computadores", "Eduardo", 30, True),
+        Disciplina("Sistemas Distribuídos", "Eduardo", 20, True),
+        Disciplina("Bancos de Dados I", "Fernanda", 35, True),
+        Disciplina("Bancos de Dados II", "Fernanda", 30, True),
+        Disciplina("Engenharia de Software", "Fernanda", 35, True),
+        Disciplina("Mineração de Dados", "Fernanda", 25, True),
+
+        # Matérias com professores que têm janelas muito curtas na semana (Ana, Hugo, Roberto)
+        Disciplina("Metodologia Científica", "Ana", 55, False),
+        Disciplina("Introdução à Computação", "Ana", 30, True),
+        Disciplina("Computação Gráfica", "Hugo", 22, True),
+        Disciplina("Processamento de Imagens", "Hugo", 20, True),
+        Disciplina("Matemática Discreta", "Roberto", 45, False),
+        Disciplina("Geometria Analítica", "Roberto", 50, False)
+    ],
     
-    # CENÁRIO HARDCORE: Muitas turmas disputando espaço limite e professores sobrecarregados nos mesmos horários
+    # CENÁRIO HARDCORE: Muitas turmas disputando espaço limite. 
+    # IMPOSSÍVEL de resolver 100%. Usado para testar o limite de quebra do algoritmo.
     "hardcore": [
         # Engenharia de Software / IA - Bloco 1
         Disciplina("Inteligência Artificial", "Afonso", 35, True),
@@ -64,7 +106,7 @@ lista_disciplinas = {
         Disciplina("Introdução à Computação", "Ana", 60, True),
         Disciplina("Lógica para Computação", "Ana", 40, False),
         
-        # Disciplinas Extras para Lotar a Semana (Aulas do período da tarde/noite simuladas)
+        # Disciplinas Extras para Lotar a Semana
         Disciplina("Paradigmas de Programação", "Daniela", 30, True),
         Disciplina("Física Mecânica", "Daniela", 32, False),
         Disciplina("Física Eletromagnetismo", "Daniela", 28, False),
@@ -102,7 +144,7 @@ lista_disciplinas = {
     ]
 }
 
-#aqui vao os horarios e dias possiveis para alocacao de aulas
+# aqui vao os horarios e dias possiveis para alocacao de aulas
 lista_horarios = [
     # Segunda-Feira
     Horario("Segunda", "08:00-10:00"),
@@ -134,3 +176,18 @@ lista_horarios = [
     Horario("Sexta", "13:00-15:00"),
     Horario("Sexta", "15:00-17:00")
 ]
+
+# restrições de dias dos professores
+restricoes_professores = {
+    "Afonso": ["Segunda", "Terça", "Sexta"],
+    "Beatriz": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"],
+    "Carlos": ["Segunda", "Terça", "Quarta", "Quinta"],
+    "Daniela": ["Terça", "Quarta", "Quinta"],
+    "Eduardo": ["Segunda", "Quarta", "Sexta"],
+    "Fernanda": ["Segunda", "Terça", "Quarta", "Quinta"],
+    "Hugo": ["Quinta", "Sexta"],
+    "Ana": ["Segunda", "Quarta"],
+    "Roberto": ["Terça", "Quinta"]
+}
+
+
