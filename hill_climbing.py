@@ -4,18 +4,25 @@ import time
 from modelos import Alocacao  # supondo que você tenha essas classes em modelos.py
 
 # Importando os dados do arquivo central
-from dados_teste import lista_salas, lista_disciplinas, lista_horarios
+from dados_teste import lista_salas, lista_disciplinas, lista_horarios, restricoes_professores
 
 # função de avaliação, conta penalidades aos estados 
 def avaliacao(alocacao):
     penalidade = 0
 
-    # penalidades por capacidade e projetor
+    # penalidades por capacidade, projetor e dias do professor
     for i in range(len(alocacao)):
         sala = alocacao[i][0]
         disciplina = alocacao[i][1]
+        horario = alocacao[i][2] # pegando o horario aqui tbm pra validar o dia
+        
         if disciplina.capacidade > sala.capacidade: penalidade += 1
         if disciplina.projetor and not sala.projetor: penalidade += 1
+        
+        # checa se o dia sorteado ta na lista de dias do professor
+        dias_permitidos = restricoes_professores.get(disciplina.prof, [])
+        if horario.dia not in dias_permitidos:
+            penalidade += 10 # peso 10 pra forçar o algoritmo a fugir desse erro
 
     # penalidades por professor e sala no mesmo horário
     for i in range(len(alocacao)):
@@ -51,10 +58,20 @@ def gerar_vizinho_mutacao(alocacao, disciplinas_ativas):
         novo_horario = random.choice(lista_horarios) #uma escolha aleatória de horário
         novo_item = [nova_sala, novo[i][1], novo_horario] #novo item com a nova sala, a mesma disciplina e o novo horário
         novo[i] = novo_item #novo estado, a alocação i é substituida pelo novo item
+
     else:
-        nova_disc = random.choice(disciplinas_ativas) #escolha aleatória de disciplina
-        novo_item = [novo[i][0], nova_disc, novo[i][2]] #novo item com a mesma sala, a nova disciplina e o mesmo horário
-        novo[i] = novo_item #novo estado a alocação i é substituida pelo novo item
+        # Escolhe um segundo índice aleatório diferente de i
+        j = random.randrange(len(novo))
+        while j == i:
+            j = random.randrange(len(novo))
+        
+        # Em vez de sortear uma nova da lista, troca as duas de lugar 
+        # Mantém as salas e horários fixos, só permuta qual disciplina vai em cada canto
+        disc_i = novo[i][1]
+        disc_j = novo[j][1]
+        
+        novo[i] = [novo[i][0], disc_j, novo[i][2]]
+        novo[j] = [novo[j][0], disc_i, novo[j][2]]
     
     return novo
 
