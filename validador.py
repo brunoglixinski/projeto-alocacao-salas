@@ -1,10 +1,18 @@
 import numpy as np
+from dados_teste import restricoes_professores
 
 def alocacaoValida(nova_disciplina, nova_sala, novo_horario, lista_alocados):
-    #primeiro testa se tem capacidade e se tem projetor se necessário
+
+    # primeiro testa se tem capacidade e se tem projetor se necessário
     if nova_disciplina.capacidade > nova_sala.capacidade:
         return False
-    elif nova_disciplina.projetor == True and nova_sala.projetor == False:
+    
+    if nova_disciplina.projetor == True and nova_sala.projetor == False:
+        return False
+    
+    # Restrição de dia do professor
+    diasPermitidos = restricoes_professores.get(nova_disciplina.prof, [])
+    if diasPermitidos and novo_horario.dia not in diasPermitidos:
         return False
     
     for alocacao in lista_alocados:

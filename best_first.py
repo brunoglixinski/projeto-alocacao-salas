@@ -1,7 +1,7 @@
 import numpy as np
 import time
 from modelos import Disciplina, Sala, Horario, Alocacao
-from dados_teste import lista_salas, lista_disciplinas, lista_horarios
+from dados_teste import lista_salas, lista_disciplinas, lista_horarios, restricoes_professores
 from validador import alocacaoValida
 
 def calcularPrioridade(Disciplina):
@@ -11,6 +11,11 @@ def calcularPrioridade(Disciplina):
     # se a sala precisar de projetor, a prioridade de alocacao aumenta
     if Disciplina.projetor:
         score += 50
+
+    # Quanto menos dias disponíveis o professor tem, mais difícil é alocar a disciplina.
+    maxDias = 5
+    diasDisponiveis = len(restricoes_professores.get(Disciplina.prof, ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"]))
+    score += (maxDias - diasDisponiveis) * 30 # Até +90 pts se o professor tiver muitas restrições
 
     return score
 
@@ -81,6 +86,6 @@ def bestFirst(dataset="realista"):
     # Subtraímos os tempos (em segundos), multiplicamos por 1000 e arredondamos para 3 casas
     tempo_gasto = round((time.perf_counter() - tempoInicio) * 1000, 3)
     
-    conflitos_restantes = 0 # No Best-First puro, termina com 0 conflitos
+    conflitos_restantes = len(lista_nao_alocados)
 
     return lista_alocados, tempo_gasto, nosExpandidos, nosGerados, conflitos_restantes
