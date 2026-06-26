@@ -29,21 +29,21 @@ O software segue uma arquitetura modular que separa a interface, as regras de ne
 
 O sistema valida e penaliza as alocações com base em restrições rígidas (*Hard Constraints*):
 
-1. **Capacidade Física:** A quantidade de alunos matriculados na disciplina não pode exceder a capacidade máxima de assentos da sala alocada[cite: 35].
-2. **Disponibilidade de Recursos:** Disciplinas que exigem projetor só podem ser alocadas em salas ou laboratórios equipados com o recurso[cite: 35].
-3. **Agenda do Docente:** Uma disciplina só pode ser agendada em um dia da semana em que o professor possui disponibilidade declarada[cite: 35].
-4. **Choque de Sala:** Uma sala não pode receber duas disciplinas distintas no mesmo dia e bloco de horário[cite: 35].
-5. **Choque de Professor:** Um professor não pode ministrar duas aulas simultâneas em espaços diferentes[cite: 35].
+1. **Capacidade Física:** A quantidade de alunos matriculados na disciplina não pode exceder a capacidade máxima de assentos da sala alocada.
+2. **Disponibilidade de Recursos:** Disciplinas que exigem projetor só podem ser alocadas em salas ou laboratórios equipados com o recurso.
+3. **Agenda do Docente:** Uma disciplina só pode ser agendada em um dia da semana em que o professor possui disponibilidade declarada.
+4. **Choque de Sala:** Uma sala não pode receber duas disciplinas distintas no mesmo dia e bloco de horário.
+5. **Choque de Professor:** Um professor não pode ministrar duas aulas simultâneas em espaços diferentes.
 
 ---
 
 ## 📊 Cenários de Teste Disponíveis
 
-A aplicação conta com quatro conjuntos de dados no menu de seleção para testes de escalabilidade[cite: 30]:
-* **Cenário Simples:** Matriz enxuta ideal para validação inicial de fluxo[cite: 30].
-* **Cenário Realista:** Volume moderado que simula a distribuição de um período padrão[cite: 30].
-* **Cenário Intermediário:** Alta densidade de turmas (29 disciplinas) altamente restritas, mas matematicamente tratáveis com 0 conflitos[cite: 30].
-* **Cenário Hardcore:** Escopo de estresse massivo projetado para saturar os limites físicos do espaço de estados, forçando o descarte ou a geração de penalidades locais para análise limite dos algoritmos[cite: 30].
+A aplicação conta com quatro conjuntos de dados no menu de seleção para testes de escalabilidade:
+* **Cenário Simples:** Matriz enxuta ideal para validação inicial de fluxo.
+* **Cenário Realista:** Volume moderado que simula a distribuição de um período padrão.
+* **Cenário Intermediário:** Alta densidade de turmas (29 disciplinas) altamente restritas, mas matematicamente tratáveis com 0 conflitos.
+* **Cenário Hardcore:** Escopo de estresse massivo projetado para saturar os limites físicos do espaço de estados, forçando o descarte ou a geração de penalidades locais para análise limite dos algoritmos.
 
 ---
 
