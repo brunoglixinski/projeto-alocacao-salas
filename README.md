@@ -6,8 +6,8 @@ Este projeto foi desenvolvido como parte do Trabalho 1 da disciplina de **Inteli
 
 O sistema aborda o problema utilizando duas estratégias distintas de busca em Inteligência Artificial, integradas a uma interface web comum para fins de análise comparativa:
 
-1. **Busca de Melhor Escolha (*Best-First Search*):** Algoritmo de busca construtiva com ordenação heurística estática baseada na criticidade das disciplinas (priorizando turmas com maior número de alunos, necessidade de projetor e restrição de dias do docente)[cite: 29].
-2. **Subida na Montanha (*Random Restart Hill Climbing*):** Algoritmo de busca local estocástica com múltiplos reinícios aleatórios e avaliação de vizinhança paralela baseada em mutação e perturbação de estados de alocação[cite: 31].
+1. **Busca de Melhor Escolha (*Best-First Search*):** Algoritmo de busca construtiva com ordenação heurística estática baseada na criticidade das disciplinas (priorizando turmas com maior número de alunos, necessidade de projetor e restrição de dias do docente).
+2. **Subida na Montanha (*Random Restart Hill Climbing*):** Algoritmo de busca local estocástica com múltiplos reinícios aleatórios e avaliação de vizinhança paralela baseada em mutação e perturbação de estados de alocação.
 
 ---
 
