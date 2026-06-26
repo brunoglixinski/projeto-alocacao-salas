@@ -15,13 +15,13 @@ O sistema aborda o problema utilizando duas estratégias distintas de busca em I
 
 O software segue uma arquitetura modular que separa a interface, as regras de negócio e os motores de busca:
 
-* `modelos.py`: Contém as classes base do domínio (`Sala`, `Disciplina`, `Horario`, `Alocacao`)[cite: 33].
-* `dados_teste.py`: Massa de dados dinâmicos estruturada em 4 cenários analíticos com restrições explícitas de calendário para os professores[cite: 30].
-* `validador.py`: Concentra o núcleo lógico de regras, atuando como o verificador rígido de restrições para os algoritmos[cite: 35].
-* `best_first.py`: Implementação do motor de busca heurística Best-First[cite: 29].
-* `hill_climbing.py`: Implementação do motor de busca estocástica Hill Climbing[cite: 31].
-* `app.py`: Servidor API construído em FastAPI responsável por gerenciar as requisições assíncronas do cliente e unificar os formatos de saída[cite: 28].
-* `index.html`: Interface do usuário responsiva construída em Tailwind CSS, oferecendo uma matriz de visualização paralela filtrada por sala e painel de desempenho em tempo real[cite: 32].
+* `modelos.py`: Contém as classes base do domínio (`Sala`, `Disciplina`, `Horario`, `Alocacao`).
+* `dados_teste.py`: Massa de dados dinâmicos estruturada em 4 cenários analíticos com restrições explícitas de calendário para os professores.
+* `validador.py`: Concentra o núcleo lógico de regras, atuando como o verificador rígido de restrições para os algoritmos.
+* `best_first.py`: Implementação do motor de busca heurística Best-First.
+* `hill_climbing.py`: Implementação do motor de busca estocástica Hill Climbing.
+* `app.py`: Servidor API construído em FastAPI responsável por gerenciar as requisições assíncronas do cliente e unificar os formatos de saída.
+* `index.html`: Interface do usuário responsiva construída em Tailwind CSS, oferecendo uma matriz de visualização paralela filtrada por sala e painel de desempenho em tempo real.
 
 ---
 
