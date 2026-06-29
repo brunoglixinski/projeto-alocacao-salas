@@ -1,4 +1,4 @@
-#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+# Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
 # trazendo as classes de modelos para instanciar os objetos aqui
 from modelos import Sala, Disciplina, Horario
 
@@ -31,14 +31,16 @@ lista_disciplinas = {
         Disciplina("Cálculo II", "Carlos", 40, False),
         Disciplina("Física Mecânica", "Daniela", 30, False),
         Disciplina("Redes de Computadores", "Eduardo", 25, True),
-        Disciplina("Bancos de Dados", "Fernanda", 42, True),
-        Disciplina("Engenharia de Software", "Fernanda", 50, True)
+        
+        # Correção: Reduzindo as turmas da Fernanda para <= 35 para caberem na Sala 101 com projetor
+        Disciplina("Bancos de Dados", "Fernanda", 35, True),
+        Disciplina("Engenharia de Software", "Fernanda", 30, True)
     ],
 
     # CENÁRIO INTERMEDIÁRIO (MEIO-TERMO): Volume alto (29 matérias). 
     # Espaço apertado e professores com restrições de dias, mas MATEMATICAMENTE POSSÍVEL de resolver com 0 conflitos.
     "intermediario": [
-        # Bloco de IA e Dados (Afonso e Beatriz diluídos em seus dias permitidos)
+        # Bloco de IA e Dados
         Disciplina("Inteligência Artificial I", "Afonso", 30, True),
         Disciplina("Inteligência Artificial II", "Afonso", 25, True),
         Disciplina("Compiladores", "Afonso", 30, True),
@@ -48,7 +50,7 @@ lista_disciplinas = {
         Disciplina("Programação Orientada a Objetos", "Beatriz", 25, True),
         Disciplina("Teoria dos Grafos", "Beatriz", 20, True),
 
-        # Bloco de Exatas (Turmas grandes dependendo fortemente da Sala 102)
+        # Bloco de Exatas
         Disciplina("Cálculo I", "Carlos", 55, False),
         Disciplina("Cálculo II", "Carlos", 60, False),
         Disciplina("Cálculo III", "Carlos", 50, False),
@@ -67,7 +69,7 @@ lista_disciplinas = {
         Disciplina("Engenharia de Software", "Fernanda", 35, True),
         Disciplina("Mineração de Dados", "Fernanda", 25, True),
 
-        # Matérias com professores que têm janelas muito curtas na semana (Ana, Hugo, Roberto)
+        # Matérias com professores que têm janelas muito curtas na semana
         Disciplina("Metodologia Científica", "Ana", 55, False),
         Disciplina("Introdução à Computação", "Ana", 30, True),
         Disciplina("Computação Gráfica", "Hugo", 22, True),
@@ -75,9 +77,60 @@ lista_disciplinas = {
         Disciplina("Matemática Discreta", "Roberto", 45, False),
         Disciplina("Geometria Analítica", "Roberto", 50, False)
     ],
+
+    # CENÁRIO AVANÇADO: Volume muito alto (36 matérias).
+    # O tabuleiro está quase cheio. O desafio principal é a disputa extrema pelas vagas da Sala 102
+    # pelas turmas enormes de Cálculo e Metodologia, cruzando com a agenda restrita dos professores.
+    "avancado": [
+        Disciplina("Inteligência Artificial", "Afonso", 30, True),
+        Disciplina("Compiladores", "Afonso", 25, True),
+        Disciplina("Visão Computacional", "Afonso", 20, True),
+        
+        Disciplina("Estrutura de Dados", "Beatriz", 35, True),
+        Disciplina("Programação Orientada a Objetos", "Beatriz", 30, True),
+        Disciplina("Teoria dos Grafos", "Beatriz", 25, True),
+        Disciplina("Desenvolvimento Web", "Beatriz", 25, True),
+        
+        Disciplina("Cálculo I", "Carlos", 60, False),
+        Disciplina("Cálculo II", "Carlos", 55, False),
+        Disciplina("Álgebra Linear", "Carlos", 50, False),
+        Disciplina("Estatística Aplicada", "Carlos", 40, False),
+        Disciplina("Probabilidade", "Carlos", 45, False),
+        
+        Disciplina("Física Mecânica", "Daniela", 35, False),
+        Disciplina("Termodinâmica", "Daniela", 30, False),
+        Disciplina("Eletromagnetismo", "Daniela", 30, False),
+        
+        Disciplina("Redes de Computadores I", "Eduardo", 25, True),
+        Disciplina("Redes de Computadores II", "Eduardo", 25, True),
+        Disciplina("Sistemas Operacionais", "Eduardo", 20, True),
+        Disciplina("Arquitetura de Computadores", "Eduardo", 25, True),
+        Disciplina("Sistemas Distribuídos", "Eduardo", 20, True),
+        Disciplina("Computação em Nuvem", "Eduardo", 20, True),
+        
+        Disciplina("Bancos de Dados I", "Fernanda", 35, True),
+        Disciplina("Bancos de Dados II", "Fernanda", 35, True),
+        Disciplina("Engenharia de Software", "Fernanda", 30, True),
+        Disciplina("Engenharia de Requisitos", "Fernanda", 30, True),
+        Disciplina("Qualidade de Software", "Fernanda", 25, True),
+        Disciplina("Interface Homem-Computador", "Fernanda", 30, False),
+        
+        Disciplina("Metodologia Científica", "Ana", 60, True),
+        Disciplina("Introdução à Computação", "Ana", 45, True),
+        Disciplina("Ética na Computação", "Ana", 40, False),
+        Disciplina("Empreendedorismo", "Ana", 35, False),
+        
+        Disciplina("Computação Gráfica", "Hugo", 25, True),
+        Disciplina("Processamento de Imagens", "Hugo", 20, True),
+        Disciplina("Segurança de Sistemas", "Hugo", 25, True),
+        Disciplina("Desenvolvimento de Jogos", "Hugo", 20, True),
+        
+        Disciplina("Matemática Discreta", "Roberto", 50, False),
+        Disciplina("Geometria Analítica", "Roberto", 45, False)
+    ],
     
     # CENÁRIO HARDCORE: Muitas turmas disputando espaço limite. 
-    # IMPOSSÍVEL de resolver 100%. Usado para testar o limite de quebra do algoritmo.
+    # IMPOSSÍVEL de resolver 100% com as restrições de sala e professor. Testa o limite de quebra do algoritmo.
     "hardcore": [
         # Engenharia de Software / IA - Bloco 1
         Disciplina("Inteligência Artificial", "Afonso", 35, True),
@@ -190,5 +243,3 @@ restricoes_professores = {
     "Ana": ["Segunda", "Quarta"],
     "Roberto": ["Terça", "Quinta"]
 }
-
-

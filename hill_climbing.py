@@ -1,7 +1,7 @@
 import random
 import copy
 import time
-from modelos import Alocacao  # supondo que você tenha essas classes em modelos.py
+from modelos import Alocacao  
 #Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
 
 # Importando os dados do arquivo central

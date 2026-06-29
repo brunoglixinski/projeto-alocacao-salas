@@ -41,10 +41,10 @@ def rodar_alocacao(algoritmo: str, dataset: str = "realista"):
             "professor": aloc.disciplina.prof
         })
 
-    # ALTERADO: Cria uma lista limpa contendo apenas os nomes das salas cadastradas
+    # Cria uma lista limpa contendo apenas os nomes das salas cadastradas
     salas_disponiveis = [sala.nome for sala in lista_salas]
 
-    # ALTERADO: adicionei em métricas os nós gerados e expandidos que são cobrados
+    # adicionei em métricas os nós gerados e expandidos que são cobrados
     return {
         "algoritmo": "Subida na Montanha" if algoritmo == "hill_climbing" else "Best-First Search",
         "metricas": {
