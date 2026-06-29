@@ -4,7 +4,7 @@ from hill_climbing import subidamontanha
 from best_first import bestFirst 
 # Importando a lista de salas para poder enviar ao JavaScript
 from dados_teste import lista_salas
-#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+#Bruno Glixinski, Kayra Yokoyama, Eric Barbachã e Gabriel Costa
 
 app = FastAPI()
 

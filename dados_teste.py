@@ -1,4 +1,4 @@
-# Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+# Bruno Glixinski, Kayra Yokoyama, Eric Barbachã e Gabriel Costa
 # trazendo as classes de modelos para instanciar os objetos aqui
 from modelos import Sala, Disciplina, Horario
 

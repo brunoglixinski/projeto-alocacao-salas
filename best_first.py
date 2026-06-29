@@ -3,7 +3,7 @@ import time
 from modelos import Disciplina, Sala, Horario, Alocacao
 from dados_teste import lista_salas, lista_disciplinas, lista_horarios, restricoes_professores
 from validador import alocacaoValida
-#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+#Bruno Glixinski, Kayra Yokoyama, Eric Barbachã e Gabriel Costa
 
 def calcularPrioridade(Disciplina):
     # atribui como primeiro valor de prioridade a quantidade de alunos da turma

@@ -2,7 +2,7 @@ import random
 import copy
 import time
 from modelos import Alocacao  
-#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+#Bruno Glixinski, Kayra Yokoyama, Eric Barbachã e Gabriel Costa
 
 # Importando os dados do arquivo central
 from dados_teste import lista_salas, lista_disciplinas, lista_horarios, restricoes_professores
