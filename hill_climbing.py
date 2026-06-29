@@ -2,6 +2,7 @@ import random
 import copy
 import time
 from modelos import Alocacao  # supondo que você tenha essas classes em modelos.py
+#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
 
 # Importando os dados do arquivo central
 from dados_teste import lista_salas, lista_disciplinas, lista_horarios, restricoes_professores

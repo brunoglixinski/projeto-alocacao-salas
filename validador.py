@@ -1,5 +1,6 @@
 import numpy as np
 from dados_teste import restricoes_professores
+#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
 
 def alocacaoValida(nova_disciplina, nova_sala, novo_horario, lista_alocados):
 

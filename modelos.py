@@ -1,3 +1,4 @@
+#Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
 #aqui sao definidas as salas e suas especificidades
 class Sala:
     def __init__(self, nome, capacidade, projetor):

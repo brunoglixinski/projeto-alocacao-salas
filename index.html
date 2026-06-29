@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="antialiased">
 
+//Bruno Glixinski, Kayra Yokoyama, Erik Felipe e Gabriel Costa
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -236,7 +238,7 @@
                 document.getElementById('m-tempo').innerText = dados.metricas.tempo_execucao_ms;
                 // ALTERADO: Alimenta os novos cards tratando se a chave vier como 'nos_generados' ou 'nos_gerados'
                 document.getElementById('m-nos-expandidos').innerText = dados.metricas.nos_expandidos.toLocaleString();
-                document.getElementById('m-nos-gerados').innerText = dados.metricas.nos_generados ? dados.metricas.nos_generados.toLocaleString() : dados.metricas.nos_gerados.toLocaleString();
+                document.getElementById('m-nos-gerados').innerText = dados.metricas.nos_gerados ? dados.metricas.nos_gerados.toLocaleString() : dados.metricas.nos_gerados.toLocaleString();
                 document.getElementById('m-conflitos').innerText = dados.metricas.conflitos_restantes;
 
                 const statusTexto = document.getElementById('m-status');
